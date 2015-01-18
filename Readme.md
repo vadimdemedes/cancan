@@ -31,7 +31,7 @@ var CanCan = require('cancan');
 var { can, cannot, authorize } = CanCan;
 ```
 
-1. ### Define abilities
+### 1. Define abilities
 
 User permissions are defined in an `Ability` class.
 An example class looks like this:
@@ -77,7 +77,7 @@ this.can('read', Product, function (product) { // same thing, but using a functi
 });
 ```
 
-2. ### Check abilities and authorization
+### 2. Check abilities and authorization
 
 To check ability to do some action:
 
@@ -98,6 +98,8 @@ If permission is given, nothing will be done and code will continue executing.
 ```
 authorize(user, 'edit', product);
 ```
+
+### 3. Enjoy!
 
 ## Tests
 
