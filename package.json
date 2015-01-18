@@ -1,0 +1,23 @@
+{
+  "name": "cancan",
+  "version": "0.1.0",
+  "description": "Authorization library",
+  "author": "Vadim Demedes <vdemedes@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vdemedes/cancan"
+  },
+  "bugs": {
+    "url": "https://github.com/vdemedes/cancan/issues"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "6to5": "^2.13.1",
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/test"
+  }
+}
