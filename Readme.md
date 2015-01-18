@@ -81,7 +81,7 @@ this.can('read', Product, function (product) { // same thing, but using a functi
 
 To check ability to do some action:
 
-```
+```javascript
 // some product from the database
 let product = yield Product.findOne();
 
@@ -95,7 +95,7 @@ There's also a stricter method `authorize`, which will emit an exception if the 
 It is useful for applications based on Koa, where emitting an exception would abort a request.
 If permission is given, nothing will be done and code will continue executing.
 
-```
+```javascript
 authorize(user, 'edit', product);
 ```
 
