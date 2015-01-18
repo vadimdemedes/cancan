@@ -4,6 +4,8 @@ This is basically a port of Ryan Bates' [cancan](https://github.com/ryanb/cancan
 CanCan rovides a simple API for handling authorization of actions.
 All permissions are defined in a single location (the `Ability` class) and not duplicated across controllers, views, and database queries.
 
+[![Circle CI](https://circleci.com/gh/vdemedes/cancan.svg?style=svg)](https://circleci.com/gh/vdemedes/cancan)
+
 ## Features
 
 - Dead-simple API
@@ -98,6 +100,8 @@ authorize(user, 'edit', product);
 ```
 
 ## Tests
+
+[![Circle CI](https://circleci.com/gh/vdemedes/cancan.svg?style=svg)](https://circleci.com/gh/vdemedes/cancan)
 
 ```
 $ npm test
