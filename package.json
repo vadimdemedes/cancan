@@ -15,7 +15,7 @@
     "isarray": "0.0.1"
   },
   "devDependencies": {
-    "6to5": "^2.13.1",
+    "babel": "^5.8.21",
     "chai": "^1.10.0",
     "mocha": "^2.1.0"
   },

@@ -1,3 +1,3 @@
-require('6to5/register');
+require('babel/register');
 
 require('./cancan.test');
