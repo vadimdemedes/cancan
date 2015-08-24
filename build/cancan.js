@@ -1,8 +1,8 @@
+'use strict';
+
 /**
  * Dependencies
  */
-
-'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
@@ -20,21 +20,26 @@ var CanCan = (function () {
     _classCallCheck(this, CanCan);
   }
 
-  // bind CanCan's methods to save context
+  /**
+   * Ability
+   *
+   * Customize abilities using this class
+   */
 
   CanCan.can = function can(user, action, target) {
-    var ability = new this.Ability();
+    var ability = new CanCan.Ability();
+
     ability.configure(user);
 
     return ability._test(action, target);
   };
 
   CanCan.cannot = function cannot() {
-    return !this.can.apply(this, arguments);
+    return !CanCan.can.apply(this, arguments);
   };
 
   CanCan.authorize = function authorize() {
-    var isAllowed = this.can.apply(this, arguments);
+    var isAllowed = CanCan.can.apply(this, arguments);
 
     if (!isAllowed) {
       var err = new Error('Not authorized.');
@@ -44,21 +49,11 @@ var CanCan = (function () {
   };
 
   CanCan.setup = function setup(ability) {
-    this.Ability = ability;
+    CanCan.Ability = ability;
   };
 
   return CanCan;
 })();
-
-['can', 'cannot', 'authorize', 'setup'].forEach(function (method) {
-  return CanCan[method] = CanCan[method].bind(CanCan);
-});
-
-/**
- * Ability
- *
- * Customize abilities using this class
- */
 
 var Ability = (function () {
   function Ability() {
