@@ -9,10 +9,7 @@ var _prototypeProperties = function (child, staticProps, instanceProps) {
  * Dependencies
  */
 
-var _require = require("./util");
-
-var isArray = _require.isArray;
-
+var isArray = require("isarray");
 
 
 /**

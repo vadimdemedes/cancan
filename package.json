@@ -11,7 +11,9 @@
   "bugs": {
     "url": "https://github.com/vdemedes/cancan/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "isarray": "0.0.1"
+  },
   "devDependencies": {
     "6to5": "^2.13.1",
     "chai": "^1.10.0",
