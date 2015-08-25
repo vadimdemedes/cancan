@@ -1,7 +1,7 @@
 {
   "name": "cancan",
   "version": "0.1.0",
-  "description": "Authorization library",
+  "description": "Authorize with pleasure",
   "author": "Vadim Demedes <vdemedes@gmail.com>",
   "license": "MIT",
   "repository": {
