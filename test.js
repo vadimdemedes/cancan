@@ -4,15 +4,17 @@
  * Dependencies
  */
 
-var cancan = require('../');
+const cancan = require('./');
 
-var { can, cannot, authorize } = cancan;
+const authorize = cancan.authorize;
+const cannot = cancan.cannot;
+const can = cancan.can;
 
 require('chai').should();
 
 
 /**
- * Tests
+ * Example classes
  */
 
 class User {
@@ -20,8 +22,8 @@ class User {
 }
 
 class Product {
-  constructor (attrs = {}) {
-    this.attrs = attrs;
+  constructor (attrs) {
+    this.attrs = attrs || {};
   }
 
   get (key) {
@@ -29,7 +31,13 @@ class Product {
   }
 }
 
+
+/**
+ * Tests
+ */
+
 describe ('cancan', function () {
+
   it ('allow one action', function () {
 
     cancan.configure(User, function (user) {
@@ -134,4 +142,5 @@ describe ('cancan', function () {
 
     done(new Error('Exception was not fired'));
   });
+
 });

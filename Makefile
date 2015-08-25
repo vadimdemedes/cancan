@@ -1,10 +1,7 @@
-SRC = $(wildcard lib/*.js)
-DEST = $(SRC:lib/%.js=build/%.js)
+SRC = index.js
 
-build: $(DEST)
-build/%.js: lib/%.js
-	mkdir -p $(@D)
-	./node_modules/.bin/babel -L all -b regenerator $< -o $@
+default:
+	@echo "No default task"
 
-clean:
-	rm -rf build
+test:
+	@./node_modules/.bin/mocha test

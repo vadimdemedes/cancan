@@ -18,11 +18,10 @@
     "isarray": "0.0.1"
   },
   "devDependencies": {
-    "babel": "^5.8.21",
     "chai": "^1.10.0",
     "mocha": "^2.1.0"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/test"
+    "test": "make test"
   }
 }
