@@ -1,69 +1,122 @@
-# CanCan
+# CanCan [![Circle CI](https://circleci.com/gh/vdemedes/cancan.svg?style=svg)](https://circleci.com/gh/vdemedes/cancan)
 
-This is basically a port of Ryan Bates' [cancan](https://github.com/ryanb/cancan) Ruby gem.
 CanCan provides a simple API for handling authorization of actions.
-All permissions are defined in a single location (the `Ability` class) and not duplicated across controllers, views, and database queries.
+Permissions are defined for each class using a simple `can` function.
 
-[![Circle CI](https://circleci.com/gh/vdemedes/cancan.svg?style=svg)](https://circleci.com/gh/vdemedes/cancan)
 
-## Features
-
-- Dead-simple API
-- Lightweight (70 sloc)
-- No dependencies
-- Tested
-
-## Installation
+### Installation
 
 ```
 $ npm install cancan --save
 ```
 
-## Getting Started
 
-**Note**: All examples are in ES6.
+### Quick Look
 
-To start with, require CanCan and create shortcuts for its main methods:
+```js
+const cancan = require('cancan');
+const can = cancan.can;
 
-```javascript
-var CanCan = require('cancan');
 
-var { can, cannot, authorize } = CanCan;
+// example classes
+class AdminUser {}
+class User {}
+
+class Product {}
+
+
+// define permissions
+cancan.configure(User, function (user) {
+  // this user can view
+  // all instances of Product
+  this.can('view', Product);
+});
+
+cancan.configure(AdminUser, function (user) {
+  // this user can:
+  //  1. view all products
+  //  2. create a new product
+  this.can('view', Product);
+  this.can('create', Product);
+});
+
+
+// check access
+let product = new Product();
+
+let adminUser = new AdminUser();
+let user = new User();
+
+can(adminUser, 'view', product); // true
+can(adminUser, 'create', product); // true
+
+can(user, 'view', product); // true
+can(user, 'create', product); // false
 ```
 
-### 1. Define abilities
 
-User permissions are defined in an `Ability` class.
-An example class looks like this:
+### Getting Started
 
-```javascript
-class Ability {
-  configure (user) {
-    if (!user) {
-      user = new User(); // guest user (not logged in)
-    }
-    
-    if (user.admin === true) {
-      this.can('manage', 'all');
-    } else {
-      this.can('read', 'all');
-    }
+To start with, require CanCan and create shortcuts for its main methods (optional):
+
+```js
+const cancan = require('cancan');
+
+const authorize = cancan.authorize;
+const cannot = cancan.cannot;
+const can = cancan.can;
+```
+
+
+#### Define permissions
+
+Permissions are defined for each class (e.g. User, GuestUser, AdminUser).
+The function you pass configures permissions for the **current instance** of a chosen class.
+In the following example, permissions are configured for instances of a *User* class.
+
+```js
+const can = cancan.can;
+
+cancan.configure(User, function (user) {
+  // only john can view products
+  if (user.name === 'john') {
+    this.can('view', Product);
   }
-}
+
+  // only drew can edit products
+  if (user.name === 'drew') {
+    this.can('edit', Product);
+  }
+});
+
+let john = new User({ name: 'john' });
+let drew = new User({ name: 'drew' });
+
+let product = new Product();
+
+can(john, 'view', product); // true
+can(john, 'edit', product); // false
+
+can(drew, 'view', product); // false
+can(drew, 'edit', product); // true
 ```
 
-The `can` method is used to define permissions and requires two arguments.
-The first one is the action you're setting the permission for, the second one is the class of object you're setting it on.
-In the above example, `'manage'` allows all actions and `'all'` allows all objects.
-Action can be any string and object can be any class (or 'all').
+The `can` (not `cancan.can`, but `this.can` in a configurator function) method is used to define permissions and requires two arguments.
+The first one is the action you're setting the permission for, the second one is the class of object you're setting it on (target).
 
-```javascript
-this.can('read', Product);
+If action equals to `'manage'`, any action is allowed.
+If target equals to `'all'`, any target is allowed.
+
+```js
+this.can('read', Product); // can read product
+this.can('manage', Product); // can do everything with product
+this.can('read', 'all'); // can read everything
+this.can('manage', 'all'); // can do everything
 ```
 
-Arrays can also be passed as arguments:
+Arrays are also accepted:
 
-```javascript
+```js
 this.can(['read', 'destroy'], [Product, Article]);
 ```
 
@@ -77,11 +130,11 @@ this.can('read', Product, function (product) { // same thing, but using a functi
 });
 ```
 
-### 2. Check abilities and authorization
+#### Check permissions
 
 To check ability to do some action:
 
-```javascript
+```js
 // some product from the database
 let product = yield Product.findOne();
 
@@ -91,24 +144,22 @@ if (can(user, 'edit', product)) {
 }
 ```
 
-There's also a stricter method `authorize`, which will emit an exception if the action is not allowed.
+There's also a stricter method `authorize`, which emits an exception if the action is not allowed.
 It is useful for applications based on Koa, where emitting an exception would abort a request.
-If permission is given, nothing will be done and code will continue executing.
+If permission is given, nothing will be done and code continues executing.
 
 ```javascript
 authorize(user, 'edit', product);
 ```
 
-### 3. Enjoy!
-
-## Tests
+### Tests
 
 [![Circle CI](https://circleci.com/gh/vdemedes/cancan.svg?style=svg)](https://circleci.com/gh/vdemedes/cancan)
 
 ```
-$ npm test
+$ make test
 ```
 
-## License
+### License
 
-CanCan is released under the MIT license.
+MIT © [Vadym Demedes](http://vadimdemedes.com)
