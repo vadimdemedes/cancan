@@ -18,9 +18,8 @@
     "isarray": "0.0.1"
   },
   "devDependencies": {
-    "chai": "^1.10.0",
-    "make-lint": "^1.0.1",
-    "mocha": "^2.1.0"
+    "ava": "^0.2.0",
+    "make-lint": "^1.0.1"
   },
   "scripts": {
     "test": "make test"

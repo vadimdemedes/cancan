@@ -5,12 +5,11 @@
  */
 
 const cancan = require('./');
+const test = require('ava');
 
 const authorize = cancan.authorize;
 const cannot = cancan.cannot;
 const can = cancan.can;
-
-require('chai').should();
 
 
 /**
@@ -36,111 +35,115 @@ class Product {
  * Tests
  */
 
-describe ('cancan', function () {
+test ('allow one action', function (t) {
+  t.plan(3);
 
-  it ('allow one action', function () {
-
-    cancan.configure(User, function (user) {
-      this.can('read', Product);
-    });
-
-    let user = new User();
-    let product = new Product();
-
-    can(user, 'read', product).should.equal(true);
-    cannot(user, 'read', product).should.equal(false);
-    can(user, 'create', product).should.equal(false);
+  cancan.configure(User, function (user) {
+    this.can('read', Product);
   });
 
-  it ('allow many actions', function () {
-    cancan.configure(User, function (user) {
-      this.can(['read', 'create', 'destroy'], Product);
-    });
+  let user = new User();
+  let product = new Product();
 
-    let user = new User();
-    let product = new Product();
+  t.true(can(user, 'read', product));
+  t.false(cannot(user, 'read', product));
+  t.false(can(user, 'create', product));
+});
 
-    can(user, 'read', product).should.equal(true);
-    can(user, 'create', product).should.equal(true);
-    can(user, 'destroy', product).should.equal(true);
+test ('allow many actions', function (t) {
+  t.plan(3);
+
+  cancan.configure(User, function (user) {
+    this.can(['read', 'create', 'destroy'], Product);
   });
 
-  it ('allow all actions using "manage"', function () {
-    cancan.configure(User, function (user) {
-      this.can('manage', Product);
-    });
+  let user = new User();
+  let product = new Product();
 
-    let user = new User();
-    let product = new Product();
+  t.true(can(user, 'read', product));
+  t.true(can(user, 'create', product));
+  t.true(can(user, 'destroy', product));
+});
 
-    can(user, 'read', product).should.equal(true);
-    can(user, 'create', product).should.equal(true);
-    can(user, 'update', product).should.equal(true);
-    can(user, 'destroy', product).should.equal(true);
-    can(user, 'modify', product).should.equal(true);
+test ('allow all actions using "manage"', function (t) {
+  t.plan(5);
+
+  cancan.configure(User, function (user) {
+    this.can('manage', Product);
   });
 
-  it ('allow all actions and all objects', function () {
-    cancan.configure(User, function (user) {
-      this.can('manage', 'all');
-    });
+  let user = new User();
+  let product = new Product();
 
-    let user = new User();
-    let product = new Product();
+  t.true(can(user, 'read', product));
+  t.true(can(user, 'create', product));
+  t.true(can(user, 'update', product));
+  t.true(can(user, 'destroy', product));
+  t.true(can(user, 'modify', product));
+});
 
-    can(user, 'read', user).should.equal(true);
-    can(user, 'read', product).should.equal(true);
+test ('allow all actions and all objects', function (t) {
+  t.plan(2);
+
+  cancan.configure(User, function (user) {
+    this.can('manage', 'all');
   });
 
-  it ('allow only certain items', function () {
-    cancan.configure(User, function (user) {
-      this.can('read', Product, { published: true });
-    });
+  let user = new User();
+  let product = new Product();
 
-    let user = new User();
-    let privateProduct = new Product();
-    let publicProduct = new Product({ published: true });
+  t.true(can(user, 'read', user));
+  t.true(can(user, 'read', product));
+});
 
-    can(user, 'read', privateProduct).should.equal(false);
-    can(user, 'read', publicProduct).should.equal(true);
+test ('allow only objects that satisfy given condition', function (t) {
+  t.plan(2);
+
+  cancan.configure(User, function (user) {
+    this.can('read', Product, { published: true });
   });
 
-  it ('allow only certain items via validator function', function () {
-    cancan.configure(User, function (user) {
-      this.can('read', Product, function (product) {
-        return product.get('published') === true;
-      });
+  let user = new User();
+  let privateProduct = new Product();
+  let publicProduct = new Product({ published: true });
+
+  t.false(can(user, 'read', privateProduct));
+  t.true(can(user, 'read', publicProduct));
+});
+
+test ('allow only objects that pass a validation test', function (t) {
+  t.plan(2);
+
+  cancan.configure(User, function (user) {
+    this.can('read', Product, function (product) {
+      return product.get('published') === true;
     });
-
-    let user = new User();
-    let privateProduct = new Product();
-    let publicProduct = new Product({ published: true });
-
-    can(user, 'read', privateProduct).should.equal(false);
-    can(user, 'read', publicProduct).should.equal(true);
   });
 
-  it ('throw an exception', function (done) {
-    cancan.configure(User, function (user) {
-      this.can('read', Product, function (product) {
-        return product.get('published') === true;
-      });
+  let user = new User();
+  let privateProduct = new Product();
+  let publicProduct = new Product({ published: true });
+
+  t.false(can(user, 'read', privateProduct));
+  t.true(can(user, 'read', publicProduct));
+});
+
+test ('throw an exception if permissions is not granted', function (t) {
+  t.plan(1);
+
+  cancan.configure(User, function (user) {
+    this.can('read', Product, function (product) {
+      return product.get('published') === true;
     });
-
-    let user = new User();
-    let privateProduct = new Product();
-    let publicProduct = new Product({ published: true });
-
-    authorize(user, 'read', publicProduct);
-
-    try {
-      authorize(user, 'read', privateProduct);
-    } catch (e) {
-      e.status.should.equal(401);
-      return done();
-    }
-
-    done(new Error('Exception was not fired'));
   });
 
+  let user = new User();
+  let privateProduct = new Product();
+  let publicProduct = new Product({ published: true });
+
+  authorize(user, 'read', publicProduct);
+
+  t.throws(function () {
+    authorize(user, 'read', privateProduct);
+  });
 });
