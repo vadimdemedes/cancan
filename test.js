@@ -38,6 +38,8 @@ class Product {
 test ('allow one action', function (t) {
   t.plan(3);
 
+  cancan.clear();
+
   cancan.configure(User, function (user) {
     this.can('read', Product);
   });
@@ -53,6 +55,8 @@ test ('allow one action', function (t) {
 test ('allow many actions', function (t) {
   t.plan(3);
 
+  cancan.clear();
+
   cancan.configure(User, function (user) {
     this.can(['read', 'create', 'destroy'], Product);
   });
@@ -67,6 +71,8 @@ test ('allow many actions', function (t) {
 
 test ('allow all actions using "manage"', function (t) {
   t.plan(5);
+
+  cancan.clear();
 
   cancan.configure(User, function (user) {
     this.can('manage', Product);
@@ -85,6 +91,8 @@ test ('allow all actions using "manage"', function (t) {
 test ('allow all actions and all objects', function (t) {
   t.plan(2);
 
+  cancan.clear();
+
   cancan.configure(User, function (user) {
     this.can('manage', 'all');
   });
@@ -98,6 +106,8 @@ test ('allow all actions and all objects', function (t) {
 
 test ('allow only objects that satisfy given condition', function (t) {
   t.plan(2);
+
+  cancan.clear();
 
   cancan.configure(User, function (user) {
     this.can('read', Product, { published: true });
@@ -113,6 +123,8 @@ test ('allow only objects that satisfy given condition', function (t) {
 
 test ('allow only objects that pass a validation test', function (t) {
   t.plan(2);
+
+  cancan.clear();
 
   cancan.configure(User, function (user) {
     this.can('read', Product, function (product) {
@@ -131,6 +143,8 @@ test ('allow only objects that pass a validation test', function (t) {
 test ('allow permissions on classes', function (t) {
   t.plan(1);
 
+  cancan.clear();
+
   cancan.configure(User, function (user) {
     this.can('read', Product, { is_published: true });
   });
@@ -142,6 +156,8 @@ test ('allow permissions on classes', function (t) {
 
 test ('throw an exception if permissions is not granted', function (t) {
   t.plan(1);
+
+  cancan.clear();
 
   cancan.configure(User, function (user) {
     this.can('read', Product, function (product) {

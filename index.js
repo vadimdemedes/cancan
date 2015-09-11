@@ -19,6 +19,7 @@ module.exports = {
   configure: configure,
   authorize: authorize,
   cannot: cannot,
+  clear: clear,
   can: can
 };
 
@@ -46,6 +47,15 @@ function configure (entity, config) {
     entity: entity,
     config: config
   });
+}
+
+
+/**
+ * Clear all existing configuration
+ */
+
+function clear () {
+  entityConfigs.length = 0;
 }
 
 
