@@ -223,8 +223,9 @@ function actionMatches (action, rule) {
 function targetMatches (target, rule) {
   // target should be:
   //  1. an instance of rule's target entity
+  //  2. a class equal to rule's target entity
   //  2. equal to "all" to allow all entities
-  return target.constructor === rule.target || rule.target === 'all';
+  return target.constructor === rule.target || target === rule.target || rule.target === 'all';
 }
 
 
@@ -237,6 +238,12 @@ function targetMatches (target, rule) {
  */
 
 function attrsMatch (target, rule) {
+  // if testing against an allowed class
+  // return true immediately
+  if (isFunction(target)) {
+    return true;
+  }
+
   // if validator function is set
   // return its result directly
   if (isFunction(rule.attrs)) {

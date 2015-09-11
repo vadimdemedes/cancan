@@ -128,6 +128,18 @@ test ('allow only objects that pass a validation test', function (t) {
   t.true(can(user, 'read', publicProduct));
 });
 
+test ('allow permissions on classes', function (t) {
+  t.plan(1);
+
+  cancan.configure(User, function (user) {
+    this.can('read', Product, { is_published: true });
+  });
+
+  let user = new User();
+
+  t.true(can(user, 'read', Product));
+});
+
 test ('throw an exception if permissions is not granted', function (t) {
   t.plan(1);
 
