@@ -4,6 +4,14 @@ CanCan provides a simple API for handling authorization of actions.
 Permissions are defined for each class using a simple `can` function.
 
 
+<h1 align="center">
+	<br>
+	<img width="200" src="media/key.png">
+	<br>
+	<br>
+	<br>
+</h1>
+
 ### Installation
 
 ```
