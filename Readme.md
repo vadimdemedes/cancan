@@ -14,14 +14,14 @@ Permissions are defined for each class using a simple `can` function.
 	<br>
 </h1>
 
-### Installation
+## Installation
 
 ```
 $ npm install cancan --save
 ```
 
 
-### Quick Look
+## Quick Look
 
 ```js
 const cancan = require('cancan');
@@ -65,7 +65,7 @@ can(user, 'create', product); // false
 ```
 
 
-### Getting Started
+## Getting Started
 
 To start with, require CanCan and create shortcuts for its main methods (optional):
 
@@ -78,7 +78,7 @@ const can = cancan.can;
 ```
 
 
-#### Define permissions
+### Define permissions
 
 Permissions are defined for each class (e.g. User, GuestUser, AdminUser).
 The function you pass configures permissions for the **current instance** of a chosen class.
@@ -140,7 +140,7 @@ this.can('read', Product, function (product) { // same thing, but using a functi
 });
 ```
 
-#### Check permissions
+### Check permissions
 
 To check ability to do some action:
 
@@ -162,14 +162,12 @@ If permission is given, nothing will be done and code continues executing.
 authorize(user, 'edit', product);
 ```
 
-### Tests
-
-[![Circle CI](https://circleci.com/gh/vdemedes/cancan.svg?style=svg)](https://circleci.com/gh/vdemedes/cancan)
+## Tests
 
 ```
 $ make test
 ```
 
-### License
+## License
 
 MIT © [Vadym Demedes](http://vadimdemedes.com)
