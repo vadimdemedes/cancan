@@ -1,4 +1,6 @@
-# CanCan [![Circle CI](https://circleci.com/gh/vdemedes/cancan.svg?style=svg)](https://circleci.com/gh/vdemedes/cancan)
+# CanCan
+
+[![Build Status](https://travis-ci.org/vdemedes/cancan.svg?branch=master)](https://travis-ci.org/vdemedes/cancan) [![Coverage Status](https://coveralls.io/repos/vdemedes/cancan/badge.svg?branch=master&service=github)](https://coveralls.io/github/vdemedes/cancan?branch=master)
 
 CanCan provides a simple API for handling authorization of actions.
 Permissions are defined for each class using a simple `can` function.

@@ -4,13 +4,7 @@
   "description": "Authorize with pleasure",
   "author": "Vadim Demedes <vdemedes@gmail.com>",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/vdemedes/cancan"
-  },
-  "bugs": {
-    "url": "https://github.com/vdemedes/cancan/issues"
-  },
+  "repository": "vdemedes/cancan",
   "dependencies": {
     "equals": "^1.0.0",
     "is-function": "^1.0.1",
@@ -19,12 +13,20 @@
   },
   "devDependencies": {
     "ava": "^0.2.0",
-    "make-lint": "^1.0.1"
+    "coveralls": "^2.11.4",
+    "eslint-config-vdemedes": "*",
+    "nyc": "^3.2.2",
+    "xo": "^0.10.0"
   },
   "scripts": {
-    "test": "make test"
+    "test": "xo && nyc ava",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "files": [
     "index.js"
-  ]
+  ],
+  "xo": {
+    "extends": "vdemedes",
+    "env": "node"
+  }
 }
