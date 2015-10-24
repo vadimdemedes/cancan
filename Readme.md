@@ -165,7 +165,7 @@ authorize(user, 'edit', product);
 ## Tests
 
 ```
-$ make test
+$ npm test
 ```
 
 ## License
