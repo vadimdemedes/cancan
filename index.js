@@ -27,7 +27,7 @@ module.exports = {
  * Configs for each entity
  */
 
-let entityConfigs = [];
+var entityConfigs = [];
 
 
 /**
