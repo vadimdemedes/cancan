@@ -12,11 +12,11 @@
     "isarray": "0.0.1"
   },
   "devDependencies": {
-    "ava": "^0.3.0",
+    "ava": "^0.7.0",
     "coveralls": "^2.11.4",
     "eslint-config-vdemedes": "*",
-    "nyc": "^3.2.2",
-    "xo": "^0.10.0"
+    "nyc": "^4.0.1",
+    "xo": "^0.11.2"
   },
   "scripts": {
     "test": "xo && nyc ava",
