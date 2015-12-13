@@ -23,7 +23,7 @@ $ npm install cancan --save
 
 ## User Guide
 
-<a href="https://tonicdev.com/vdemedes/cancan-guide"><img src="media/tonic.png" width="24" align="top"></a> [Read the interactive user guide on Tonic](https://tonicdev.com/vdemedes/cancan-guide)
+<a href="https://bucketdev.firebaseapp.com/vdemedes/cancan"><img src="https://bucketdev.firebaseapp.com/images/logo.png" width="28" align="top"></a> [Read the interactive user guide on Bucket](https://bucketdev.firebaseapp.com/vdemedes/cancan)
 
 
 ## Quick Look
