@@ -6,7 +6,6 @@
 
 var isPlainObject = require('is-plain-obj');
 var isFunction = require('is-function');
-var isArray = require('isarray');
 var equals = require('equals');
 
 
@@ -160,11 +159,11 @@ Ability.prototype.can = function can () {
 Ability.prototype.addRule = function addRule (actions, targets, attrs) {
 	// accept both arrays and single items
 	// in actions and targets
-	if (!isArray(actions)) {
+	if (!Array.isArray(actions)) {
 		actions = [actions];
 	}
 
-	if (!isArray(targets)) {
+	if (!Array.isArray(targets)) {
 		targets = [targets];
 	}
 

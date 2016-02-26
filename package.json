@@ -6,10 +6,9 @@
   "license": "MIT",
   "repository": "vdemedes/cancan",
   "dependencies": {
-    "equals": "^1.0.0",
+    "equals": "^1.0.1",
     "is-function": "^1.0.1",
-    "is-plain-obj": "^1.0.0",
-    "isarray": "0.0.1"
+    "is-plain-obj": "^1.1.0"
   },
   "devDependencies": {
     "ava": "^0.12.0",
