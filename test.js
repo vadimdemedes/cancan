@@ -175,3 +175,23 @@ test('throw an exception if permissions is not granted', function (t) {
 		authorize(user, 'read', privateProduct);
 	});
 });
+
+test('override instanceOf', function (t) {
+	cancan.instanceOf = function (instance, model) {
+		return instance instanceof model.Instance;
+	};
+
+	cancan.clear();
+
+	// mimic Sequelize models
+	cancan.configure({ Instance: User }, function () {
+		this.can('read', { Instance: Product });
+	});
+
+	let user = new User();
+	let product = new Product();
+
+	t.true(can(user, 'read', product));
+	t.false(cannot(user, 'read', product));
+	t.false(can(user, 'create', product));
+});

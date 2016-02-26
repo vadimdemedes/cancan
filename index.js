@@ -14,13 +14,12 @@ var equals = require('equals');
  * Expose main functions
  */
 
-module.exports = {
-	configure: configure,
-	authorize: authorize,
-	cannot: cannot,
-	clear: clear,
-	can: can
-};
+exports.instanceOf = instanceOf;
+exports.configure = configure;
+exports.authorize = authorize;
+exports.cannot = cannot;
+exports.clear = clear;
+exports.can = can;
 
 
 /**
@@ -33,6 +32,15 @@ var entityConfigs = [];
 /**
  * CanCan
  */
+
+/**
+ * Check if an object is instance of a class
+ */
+
+function instanceOf (instance, model) {
+	return instance.constructor === model;
+}
+
 
 /**
  * Add a new configuration for a class/entity
@@ -75,7 +83,7 @@ function can (model, action, target) {
 	entityConfigs.forEach(function (item) {
 		// check if model is an instance of
 		// the current entity
-		if (model.constructor === item.entity) {
+		if (exports.instanceOf(model, item.entity)) {
 			config = item.config;
 		}
 	});
@@ -234,7 +242,7 @@ function targetMatches (target, rule) {
 	//  1. an instance of rule's target entity
 	//  2. a class equal to rule's target entity
 	//  2. equal to "all" to allow all entities
-	return target.constructor === rule.target || target === rule.target || rule.target === 'all';
+	return exports.instanceOf(target, rule.target) || target === rule.target || rule.target === 'all';
 }
 
 
