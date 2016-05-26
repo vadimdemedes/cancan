@@ -4,8 +4,8 @@
  * Dependencies
  */
 
-const cancan = require('./');
 const test = require('ava');
+const cancan = require('./');
 
 const authorize = cancan.authorize;
 const cannot = cancan.cannot;

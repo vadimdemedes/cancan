@@ -15,7 +15,7 @@
     "coveralls": "^2.11.4",
     "eslint-config-vdemedes": "^1.0.2",
     "nyc": "^5.6.0",
-    "xo": "^0.12.1"
+    "xo": "^0.15.1"
   },
   "scripts": {
     "test": "xo && nyc ava",
@@ -26,10 +26,7 @@
   ],
   "xo": {
     "extends": "vdemedes",
-    "env": "node",
-    "rules": {
-      "babel/object-curly-spacing": 0
-    }
+    "env": "node"
   },
   "ava": {
     "serial": true
