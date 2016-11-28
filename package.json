@@ -1,21 +1,12 @@
 {
   "name": "cancan",
   "version": "2.1.0",
-  "description": "Authorize with pleasure",
+  "description": "Authorize easily",
   "author": "Vadim Demedes <vdemedes@gmail.com>",
   "license": "MIT",
   "repository": "vdemedes/cancan",
-  "dependencies": {
-    "equals": "^1.0.1",
-    "is-function": "^1.0.1",
-    "is-plain-obj": "^1.1.0"
-  },
-  "devDependencies": {
-    "ava": "^0.17.0",
-    "coveralls": "^2.11.15",
-    "eslint-config-vdemedes": "^1.0.2",
-    "nyc": "^10.0.0",
-    "xo": "^0.17.1"
+  "engines": {
+    "node": ">= 4"
   },
   "scripts": {
     "test": "xo && nyc ava",
@@ -24,11 +15,16 @@
   "files": [
     "index.js"
   ],
-  "xo": {
-    "extends": "vdemedes",
-    "env": "node"
+  "dependencies": {
+    "arrify": "^1.0.1",
+    "auto-bind": "^0.1.0",
+    "is-function": "^1.0.1",
+    "is-plain-obj": "^1.1.0"
   },
-  "ava": {
-    "serial": true
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "coveralls": "^2.11.15",
+    "nyc": "^10.0.0",
+    "xo": "^0.17.1"
   }
 }
