@@ -13,7 +13,7 @@
 CanCan provides a simple API for handling authorization of actions.
 Permissions are defined and validated using simple `allow()` and `can()` functions respectively.
 
-CanCan is by Ryan Bates' [cancan](https://github.com/ryanb/cancan).
+CanCan is inspired by Ryan Bates' [cancan](https://github.com/ryanb/cancan).
 
 
 ## Installation
