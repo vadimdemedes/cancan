@@ -45,6 +45,10 @@ class CanCan {
 	}
 
 	allow(model, actions, targets, condition) {
+		if (typeof condition !== 'undefined' && !isFunction(condition) && !isObject(condition)) {
+			throw new TypeError(`Expected condition to be object or function, got ${typeof condition}`);
+		}
+
 		if (isObject(condition)) {
 			condition = getConditionFn(condition);
 		}

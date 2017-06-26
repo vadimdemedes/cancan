@@ -115,6 +115,14 @@ test('allow only when target passes a condition', t => {
 	t.true(can(user, 'read', publicProduct));
 });
 
+test('throw when condition is not a function or an object', t => {
+	const cancan = new CanCan();
+	const {allow} = cancan;
+
+	t.notThrows(() => allow(User, 'read', Product, undefined));
+	t.throws(() => allow(User, 'read', Product, 'abc'), 'Expected condition to be object or function, got string');
+});
+
 test('allow permissions on classes', t => {
 	const cancan = new CanCan();
 	const {can, allow} = cancan;
