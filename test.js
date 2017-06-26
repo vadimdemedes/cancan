@@ -1,7 +1,5 @@
-'use strict';
-
-const test = require('ava');
-const CanCan = require('./');
+import test from 'ava';
+import CanCan from '.';
 
 class Model {
 	constructor(attrs = {}) {
@@ -146,9 +144,7 @@ test('throw if permission is not granted', t => {
 
 	authorize(user, 'read', publicProduct);
 
-	t.throws(function () {
-		authorize(user, 'read', privateProduct);
-	}, Error, 'Authorization error.');
+	t.throws(() => authorize(user, 'read', privateProduct), 'Authorization error');
 });
 
 test('throw a custom error if permission is not granted', t => {
@@ -160,7 +156,7 @@ test('throw a custom error if permission is not granted', t => {
 
 	const cancan = new CanCan({
 		createError(performer, action) {
-			return new AuthError(`User couldn't ${action} product.`);
+			return new AuthError(`User couldn't ${action} product`);
 		}
 	});
 
@@ -174,9 +170,7 @@ test('throw a custom error if permission is not granted', t => {
 
 	authorize(user, 'read', publicProduct);
 
-	t.throws(function () {
-		authorize(user, 'read', privateProduct);
-	}, AuthError, 'User couldn\'t read product.');
+	t.throws(() => authorize(user, 'read', privateProduct), AuthError, 'User couldn\'t read product');
 });
 
 test('override instanceOf', t => {
@@ -188,7 +182,7 @@ test('override instanceOf', t => {
 
 	const {allow, can, cannot} = cancan;
 
-	// mimic Sequelize models
+	// Mimic Sequelize models
 	allow({Instance: User}, 'read', {Instance: Product});
 
 	const user = new User();

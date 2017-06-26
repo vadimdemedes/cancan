@@ -4,7 +4,7 @@
   "description": "Authorize easily",
   "author": "Vadim Demedes <vdemedes@gmail.com>",
   "license": "MIT",
-  "repository": "vdemedes/cancan",
+  "repository": "vadimdemedes/cancan",
   "engines": {
     "node": ">= 4"
   },
@@ -14,14 +14,17 @@
   "files": [
     "index.js"
   ],
+  "keywords": [
+    "acl",
+    "authorization"
+  ],
   "dependencies": {
     "arrify": "^1.0.1",
-    "auto-bind": "^0.1.0",
-    "is-function": "^1.0.1",
+    "auto-bind": "^1.1.0",
     "is-plain-obj": "^1.1.0"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
-    "xo": "^0.17.1"
+    "ava": "^0.19.1",
+    "xo": "^0.18.2"
   }
 }

@@ -1,37 +1,21 @@
 'use strict';
 
-const isFunction = require('is-function');
 const isObject = require('is-plain-obj');
 const autoBind = require('auto-bind');
 const arrify = require('arrify');
 
-function get(obj, key) {
-	if (isFunction(obj.get)) {
-		return obj.get(key);
-	}
+const get = (obj, key) => typeof obj.get === 'function' ? obj.get(key) : obj[key];
 
-	return obj[key];
-}
+const isPartiallyEqual = (target, obj) => {
+	return Object.keys(obj).every(key => get(target, key) === obj[key]);
+};
 
-function isPartiallyEqual(target, obj) {
-	return Object.keys(obj).every(key => {
-		const value = obj[key];
-
-		return get(target, key) === value;
-	});
-}
-
-function getConditionFn(condition) {
+const getConditionFn = condition => {
 	return (performer, target) => isPartiallyEqual(target, condition);
-}
+};
 
-function defaultInstanceOf(instance, model) {
-	return instance instanceof model;
-}
-
-function defaultCreateError() {
-	return new Error('Authorization error.');
-}
+const defaultInstanceOf = (instance, model) => instance instanceof model;
+const defaultCreateError = () => new Error('Authorization error');
 
 class CanCan {
 	constructor(options) {
@@ -45,7 +29,7 @@ class CanCan {
 	}
 
 	allow(model, actions, targets, condition) {
-		if (typeof condition !== 'undefined' && !isFunction(condition) && !isObject(condition)) {
+		if (typeof condition !== 'undefined' && typeof condition !== 'function' && !isObject(condition)) {
 			throw new TypeError(`Expected condition to be object or function, got ${typeof condition}`);
 		}
 
@@ -55,12 +39,7 @@ class CanCan {
 
 		arrify(actions).forEach(action => {
 			arrify(targets).forEach(target => {
-				this.abilities.push({
-					model: model,
-					action: action,
-					target: target,
-					condition: condition
-				});
+				this.abilities.push({model, action, target, condition});
 			});
 		});
 	}
